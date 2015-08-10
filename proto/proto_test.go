@@ -13,17 +13,21 @@ var (
 	marTextStr = proto.MarshalTextString(msg)
 )
 
-func TestMarshal(t *testing.T) {
-	msg_new := new(MyMessage)
-	err := proto.Unmarshal([]byte(marTextStr), msg_new)
-	checkerr(err)
+func TestMain(*testing.T) {
+	marchalText()
 }
 
-func TestUnMarshalText(t *testing.T) {
-	msg_new := new(MyMessage)
-	err := proto.UnmarshalText(string(mardata), msg_new)
-	checkerr(err)
-}
+// func TestMarshal(t *testing.T) {
+// 	msg_new := new(MyMessage)
+// 	err := proto.Unmarshal([]byte(marTextStr), msg_new)
+// 	checkerr(err)
+// }
+
+// func TestUnMarshalText(t *testing.T) {
+// 	msg_new := new(MyMessage)
+// 	err := proto.UnmarshalText(string(mardata), msg_new)
+// 	checkerr(err)
+// }
 
 func BenchmarkMarshal(b *testing.B) {
 	for i := 0; i < b.N; i++ {

@@ -101,14 +101,14 @@ func receiveMsg(conn net.Conn) {
 	// fmt.Printf("[MyMessage] %v\n", msg.toString())
 
 	protobuf := proto.NewBuffer(buf[:n])
-	protobuf.Reset()
-	protobuf.SetBuf(buf[:n])
+	// protobuf.Reset()
+	// protobuf.SetBuf(buf[:n])
 	pumerr := protobuf.Unmarshal(&msg)
 
 	if checkerr(pumerr) {
 		return
 	}
-	fmt.Printf("[MyMessage] %v\n", msg)
+	fmt.Printf("[MyMessage] %v\n", msg.String())
 	fmt.Printf("[MyMessage] %v\n", msg.toString())
 }
 
