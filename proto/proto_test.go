@@ -13,8 +13,16 @@ var (
 	marTextStr = proto.MarshalTextString(msg)
 )
 
-func TestMain(*testing.T) {
-	marchalText()
+// func TestMain(*testing.T) {
+// 	marchalText()
+// }
+
+func TestUnMarshal(t *testing.T) {
+	var imsg IMessage
+	// var imsg proto.Message
+	err := proto.Unmarshal(mardata, &imsg)
+	checkerr(err)
+	t.Log(imsg)
 }
 
 // func TestMarshal(t *testing.T) {

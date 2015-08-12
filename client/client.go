@@ -2,6 +2,7 @@ package main
 
 import (
 	"code.google.com/p/goprotobuf/proto"
+	"github.com/everfore/protobuf/Person"
 	// "code.google.com/p/goprotobuf/proto/testdata"
 	"fmt"
 	"net"
@@ -28,17 +29,25 @@ func main() {
 }
 
 func Client(conn net.Conn) {
-	var123 := int32(123)
-	name := "myname"
-	quote := "myquote"
+	// var123 := int32(123)
+	// name := "myname"
+	// quote := "myquote"
 	for {
 		// send
 		time.Sleep(3e9)
-		msg := MyMessage{Count: &var123, Name: &name, Quote: &quote}
-		mterr := proto.MarshalText(conn, &msg)
-		if checkerr(mterr) {
+		// msg := MyMessage{Count: &var123, Name: &name, Quote: &quote}
+		msg := Person.Person{Name: proto.String("shiyongbin"), Id: proto.Int32(111)}
+
+		data, err := proto.Marshal(&msg)
+		if checkerr(err) {
 			break
 		}
+		conn.Write(data)
+
+		// mterr := proto.MarshalText(conn, &msg)
+		// if checkerr(mterr) {
+		// 	break
+		// }
 
 		// // receive
 		// bsbuf := make([]byte, 128)

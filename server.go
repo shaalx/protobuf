@@ -4,6 +4,7 @@ import (
 	// "log"
 	// // 辅助库
 	"code.google.com/p/goprotobuf/proto"
+	"github.com/everfore/protobuf/Person"
 	// "code.google.com/p/goprotobuf/proto/testdata"
 	// // test.pb.go 的路径
 	// "example"
@@ -42,7 +43,7 @@ func _Server(listen *net.TCPListener) {
 		fmt.Println("客户端连接来自:", conn.RemoteAddr().String())
 		defer conn.Close()
 		go func() {
-			data := make([]byte, 128)
+			data := make([]byte, 1024)
 			for {
 				// receive
 				n, err := conn.Read(data)
@@ -52,12 +53,18 @@ func _Server(listen *net.TCPListener) {
 				fmt.Printf("read %d byte.\n", n)
 				msgstr := string(data[:n])
 				fmt.Printf("  msg to string:\n%s\n", msgstr)
-				var msg MyMessage
-				umterr := proto.UnmarshalText(msgstr, &msg)
-				if checkerr(umterr) {
+				var msg Person.Person
+
+				umerr := proto.Unmarshal(data[:n], &msg)
+				if checkerr(umerr) {
 					break
 				}
-				fmt.Printf("[MyMessage]:%#v\n%s\n", msg, msg.toString())
+				fmt.Println(msg.String())
+				// umterr := proto.UnmarshalText(msgstr, &msg)
+				// if checkerr(umterr) {
+				// 	break
+				// }
+				// fmt.Printf("[MyMessage]:%#v\n%s\n", msg, msg.toString())
 
 				// // send
 				// mterr := proto.MarshalText(conn, &msg)
