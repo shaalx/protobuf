@@ -58,7 +58,7 @@ func _Server(listen *net.TCPListener) {
 				// if checkerr(umterr) {
 				// 	break
 				// }
-				// fmt.Printf("[MyMessage]:%#v\n%s\n", msg, msg.toString())
+				// fmt.Printf("[MyMessage]:%#v\n%s\n", msg, msg.String())
 
 				// // send
 
