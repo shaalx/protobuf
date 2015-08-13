@@ -2,7 +2,7 @@ package main
 
 import (
 	"code.google.com/p/goprotobuf/proto"
-	"github.com/everfore/protobuf/Person"
+	"github.com/shaalx/protobuf/Person"
 	// "code.google.com/p/goprotobuf/proto/testdata"
 	"fmt"
 	"net"
@@ -11,6 +11,8 @@ import (
 	// "io"
 	// "io/ioutil"
 	"time"
+
+	// "github.com/DeDiS/protobuf"
 )
 
 const (
@@ -89,11 +91,12 @@ func receiveMsg(conn net.Conn) {
 	if checkerr(err) {
 		return
 	}
-	readStr := string(buf[:n])
-	fmt.Printf("read string (%d):\n%s\n", n, readStr)
+	fmt.Printf("\nread (%d) byte from %v :\n%v\n", n, conn.RemoteAddr(), buf[:n])
 
-	var msg MyMessage
+	var msg Person.Person
 
+	// readStr := string(buf[:n])
+	// fmt.Printf("read string (%d):\n%s\n", n, readStr)
 	// umterr := proto.UnmarshalText(readStr, &msg)
 	// if checkerr(umterr) {
 	// 	return
@@ -117,8 +120,8 @@ func receiveMsg(conn net.Conn) {
 	if checkerr(pumerr) {
 		return
 	}
-	fmt.Printf("[MyMessage] %v\n", msg.String())
-	fmt.Printf("[MyMessage] %v\n", msg.toString())
+	fmt.Printf("[Message]----->%v\n\n", msg.String())
+	// fmt.Printf("[MyMessage] %v\n", msg.toString())
 }
 
 func checkerr(err error) bool {
