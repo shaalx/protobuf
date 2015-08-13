@@ -4,8 +4,12 @@ import (
 	"code.google.com/p/goprotobuf/proto"
 	"fmt"
 	"github.com/shaalx/protobuf/Person"
+	"github.com/shaalx/protobuf/Person2"
 	"net"
 	"time"
+
+	// "bytes"
+	// "io"
 )
 
 const (
@@ -24,7 +28,8 @@ func main() {
 }
 
 func Client(conn net.Conn) {
-	msg := Person.Person{Name: proto.String("shiyongbin"), Id: proto.Int32(111)}
+	msg := Person2.Person{Name: proto.String("shiyongbin"), Id: proto.Int32(111), Email: proto.String("email1@11.com"), Email2: proto.String("email2@22.com")}
+
 	for {
 		time.Sleep(1e9)
 
@@ -35,12 +40,19 @@ func Client(conn net.Conn) {
 		}
 		conn.Write(data)
 
+		fmt.Println("[send message]", msg.String())
+		proto.Unmarshal(data, &msg)
+		fmt.Println("[sended message]", msg.String())
 		// // receive
 		receiveMsg(conn)
+		// readConn(&conn)
 
 		time.Sleep(4e9)
 	}
 
+}
+
+func readConn(conn *net.Conn) {
 }
 
 func receiveMsg(conn net.Conn) {

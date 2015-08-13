@@ -3,7 +3,8 @@ package main
 import (
 	"code.google.com/p/goprotobuf/proto"
 	"fmt"
-	"github.com/shaalx/protobuf/Person"
+	// "github.com/shaalx/protobuf/Person"
+	"github.com/shaalx/protobuf/Person2"
 	"net"
 )
 
@@ -44,7 +45,7 @@ func _Server(listen *net.TCPListener) {
 					break
 				}
 				fmt.Printf("\nread (%d) byte from %v :\n%v\n", n, conn.RemoteAddr(), data[:n])
-				var msg Person.Person
+				var msg Person2.Person
 
 				umerr := proto.Unmarshal(data[:n], &msg)
 				if checkerr(umerr) {
