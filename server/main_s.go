@@ -45,7 +45,7 @@ func _Server(listen *net.TCPListener) {
 					break
 				}
 				fmt.Printf("\nread (%d) byte from %v :\n%v\n", n, conn.RemoteAddr(), data[:n])
-				var msg Person2.Person
+				var msg Person2.Person2
 
 				umerr := proto.Unmarshal(data[:n], &msg)
 				if checkerr(umerr) {

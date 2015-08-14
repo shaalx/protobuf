@@ -3,7 +3,8 @@ package main
 import (
 	"code.google.com/p/goprotobuf/proto"
 	"fmt"
-	"github.com/shaalx/protobuf/Person"
+	"github.com/shaalx/protobuf/OSMsg"
+	// "github.com/shaalx/protobuf/Person"
 	"github.com/shaalx/protobuf/Person2"
 	"net"
 	"time"
@@ -28,7 +29,7 @@ func main() {
 }
 
 func Client(conn net.Conn) {
-	msg := Person2.Person{Name: proto.String("shiyongbin"), Id: proto.Int32(111), Email: proto.String("email1@11.com"), Email2: proto.String("email2@22.com")}
+	msg := Person2.Person2{Name: proto.String("shiyongbin"), Id: proto.Int32(111), Email: proto.String("email1@11.com"), Email2: proto.String("email2@22.com")}
 
 	for {
 		time.Sleep(1e9)
@@ -64,7 +65,7 @@ func receiveMsg(conn net.Conn) {
 	fmt.Printf("\nread (%d) byte from %v :\n%v\n", n, conn.RemoteAddr(), buf[:n])
 
 	protobuf := proto.NewBuffer(buf[:n])
-	var msg Person.Person
+	var msg OSMsg.OSMsg
 	pumerr := protobuf.Unmarshal(&msg)
 	if checkerr(pumerr) {
 		return
