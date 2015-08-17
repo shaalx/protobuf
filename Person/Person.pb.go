@@ -58,7 +58,7 @@ func (x *Person_PhoneType) UnmarshalJSON(data []byte) error {
 
 type Person struct {
 	Name             *string               `protobuf:"bytes,1,req,name=name" json:"name,omitempty"`
-	Id               *int32                `protobuf:"varint,2,req,name=id" json:"id,omitempty"`
+	Id               *int32                `protobuf:"varint,2,req,name=id_p" json:"id,omitempty"`
 	Email            *string               `protobuf:"bytes,3,opt,name=email" json:"email,omitempty"`
 	Phone            []*Person_PhoneNumber `protobuf:"bytes,4,rep,name=phone" json:"phone,omitempty"`
 	XXX_unrecognized []byte                `json:"-"`

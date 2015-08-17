@@ -3,8 +3,8 @@ package main
 import (
 	"code.google.com/p/goprotobuf/proto"
 	"fmt"
-	// "github.com/shaalx/protobuf/Person"
-	"github.com/shaalx/protobuf/Person2"
+	"github.com/shaalx/protobuf/Person"
+	// "github.com/shaalx/protobuf/Person2"
 	"net"
 )
 
@@ -45,7 +45,7 @@ func _Server(listen *net.TCPListener) {
 					break
 				}
 				fmt.Printf("\nread (%d) byte from %v :\n%v\n", n, conn.RemoteAddr(), data[:n])
-				var msg Person2.Person2
+				var msg Person.Person
 
 				umerr := proto.Unmarshal(data[:n], &msg)
 				if checkerr(umerr) {
@@ -68,7 +68,8 @@ func _Server(listen *net.TCPListener) {
 				// 	break
 				// }
 
-				data, err := proto.Marshal(&msg)
+				new_msg := Person.Person{Id: proto.Int32(111), Name: proto.String("Shiyongbin"), Email: proto.String("shaalx@163.com")}
+				data, err := proto.Marshal(&new_msg)
 				if checkerr(err) {
 					break
 				}
