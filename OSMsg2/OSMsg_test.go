@@ -1,4 +1,4 @@
-package OSMsg
+package OSMsg2
 
 import (
 	"code.google.com/p/goprotobuf/proto"
@@ -6,22 +6,18 @@ import (
 	"testing"
 )
 
-var login = OSMsg_Login
+var login = MsgType_Login
 var osmsg *OSMsg
-var inner_loginMsg *OSMsg_LoginMsg
-var loginMsg *OSMsg
+var loginMsg *LoginMsg
 var loginMsgBytes []byte
 
 func init() {
 	osmsg = &OSMsg{Pattern: &login}
-	inner_loginMsg = &OSMsg_LoginMsg{
-		From: proto.Int32(111),
-		To:   proto.Int32(112),
-		Msg:  proto.String("hello, world."),
-	}
-	loginMsg = &OSMsg{
+	loginMsg = &LoginMsg{
 		Pattern: &login,
-		Login:   inner_loginMsg,
+		From:    proto.Int32(111),
+		To:      proto.Int32(112),
+		Msg:     proto.String("hello, world."),
 	}
 	loginMsgBytes, _ = proto.Marshal(loginMsg)
 }
@@ -37,13 +33,32 @@ func checkerr(err error) bool {
 func BenchmarkMarshal(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		proto.Marshal(loginMsg)
+		// bs, err := proto.Marshal(loginMsg)
+		// if checkerr(err) {
+		// 	b.Error(err)
+		// } else if !reflect.DeepEqual(bs, loginMsgBytes) {
+		// 	b.Error("not equal")
+		// }
 	}
 }
 
 func BenchmarkUnMarshal(b *testing.B) {
 	var new_loginMsg OSMsg
+	var loginMsg_ LoginMsg
 	for i := 0; i < b.N; i++ {
 		_ = proto.Unmarshal(loginMsgBytes, &new_loginMsg)
+		switch new_loginMsg.GetPattern() {
+		case MsgType_Group:
+			fmt.Println("group")
+		case MsgType_Individual:
+			fmt.Println("Individual")
+		case MsgType_Logup:
+			fmt.Println("Logup")
+		case MsgType_Logout:
+			fmt.Println("Logout")
+		case MsgType_Login:
+			_ = proto.Unmarshal(loginMsgBytes, &loginMsg_)
+		}
 	}
 }
 
@@ -53,9 +68,9 @@ func BenchmarkUnMarshal(b *testing.B) {
 // 	fmt.Println(b)
 // 	fmt.Printf("loginMsg:\n%v\n%v\n\n", loginMsg, loginMsg.String())
 
-// 	b2, err2 := proto.Marshal(inner_loginMsg)
+// 	b2, err2 := proto.Marshal(loginMsg)
 // 	checkerr(err2)
 // 	fmt.Println(b2)
-// 	fmt.Printf("loginMsg:\n%v\n%v\n\n", inner_loginMsg, inner_loginMsg.String())
+// 	fmt.Printf("loginMsg:\n%v\n%v\n\n", loginMsg, loginMsg.String())
 
 // }
