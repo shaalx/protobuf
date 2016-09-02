@@ -3,8 +3,8 @@ package main
 import (
 	"code.google.com/p/goprotobuf/proto"
 	"fmt"
-	"github.com/shaalx/protobuf/Person"
-	// "github.com/shaalx/protobuf/Person2"
+	"github.com/toukii/protobuf/Person"
+	// "github.com/toukii/protobuf/Person2"
 	"net"
 )
 
@@ -68,7 +68,7 @@ func _Server(listen *net.TCPListener) {
 				// 	break
 				// }
 
-				new_msg := Person.Person{Id: proto.Int32(111), Name: proto.String("Shiyongbin"), Email: proto.String("shaalx@163.com")}
+				new_msg := Person.Person{Id: proto.Int32(111), Name: proto.String("Shiyongbin"), Email: proto.String("toukii@163.com")}
 				data, err := proto.Marshal(&new_msg)
 				if checkerr(err) {
 					break

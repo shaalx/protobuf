@@ -3,9 +3,9 @@ package main
 import (
 	"code.google.com/p/goprotobuf/proto"
 	"fmt"
-	"github.com/shaalx/protobuf/OSMsg"
-	// "github.com/shaalx/protobuf/Person"
-	"github.com/shaalx/protobuf/Person2"
+	"github.com/toukii/protobuf/OSMsg"
+	// "github.com/toukii/protobuf/Person"
+	"github.com/toukii/protobuf/Person2"
 	"net"
 	"time"
 
